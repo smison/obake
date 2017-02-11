@@ -1,0 +1,21 @@
+body {
+  color: #DDDDDD;
+  background-color: #333333;
+}
+
+#game {
+  border: solid 1px;
+  border-color: #000000;   
+}
+
+#text {
+  font-size: 13px;
+  margin-left: 30px;
+}
+p {
+  font-size: 14px;
+}
+a:link    { color: #DDDDDD; }
+a:visited { color: #DDDDDD; }
+a:hover   { color: #DDDDDD; }
+a:active  { color: #DDDDDD; }
