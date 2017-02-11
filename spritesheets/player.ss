@@ -16,9 +16,9 @@
             "next": "closeeye",
             "frequency": 5
         },
-        "dead": {
+        "gameover": {
             "frames": [6],
-            "next": "dead",
+            "next": "gameover",
             "frequency": 5
         }
     }

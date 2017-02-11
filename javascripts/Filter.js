@@ -35,7 +35,7 @@ phina.define('DarkFilter', {
   update: function() {
     this.fill = 'rgba(0, 0, 0,' + this.alpha + ')'
 
-    if(IS_DEAD) {
+    if(IS_GAMEOVER) {
       this.alpha = 0;
       return;
     }

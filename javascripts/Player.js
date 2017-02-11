@@ -7,7 +7,13 @@ phina.define('Player', {
     this.anim.gotoAndPlay('normal');
     this.scaleX *= -1; // 右向きに
     this.is_normal = true;
-    this.is_dead = false;
+    this.is_gameover = false;
+
+    // 衝突判定
+    this.collision = RectangleShape().addChildTo(this);
+    this.collision.width = this.width;
+    this.collision.height = this.height;
+    this.collision.alpha = 0; //衝突判定可視化 = 1
   },
 
   update: function() {
@@ -15,10 +21,10 @@ phina.define('Player', {
   },
 
   imageUpdate: function() {
-    if(IS_DEAD) {
-      if(this.is_dead == false) {
-        this.is_dead = true;
-        this.anim.gotoAndPlay('dead');
+    if(IS_GAMEOVER) {
+      if(this.is_gameover == false) {
+        this.is_gameover = true;
+        this.anim.gotoAndPlay('gameover');
       }
       return true;
     }

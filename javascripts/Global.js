@@ -1,6 +1,6 @@
 phina.globalize();
 var IS_CLICK = false;
-var IS_DEAD = false;
+var IS_GAMEOVER = false;
 var SCREEN_WIDTH = 600;
 var SCREEN_HEIGHT = 400;
 var TITLE = "I don't believe in ghosts!";
@@ -25,9 +25,11 @@ var SCENES = [
 var ASSETS = {
   image: {
     'player': './images/player.png',
+    'slime': './images/slime.png',
   },
   spritesheet: {
     'player_ss': 'spritesheets/player.ss',
+    'slime_ss': 'spritesheets/slime.ss',
   }
 }
 
