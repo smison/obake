@@ -48,20 +48,20 @@ phina.define('DarkFilter', {
   },
 
   toDark: function() {
+    this.alpha += 0.05;
     if(this.alpha >= 1) {
       this.alpha = 1
       return true;
     }
-    this.alpha += 0.05;
     return true;
   },
 
   toLight: function() {
+    this.alpha -= 0.05;
     if(this.alpha <= 0) {
       this.alpha = 0
       return true;
     }
-    this.alpha -= 0.05;
     return true;
   }
 });
