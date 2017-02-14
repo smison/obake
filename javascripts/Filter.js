@@ -33,7 +33,7 @@ phina.define('DarkFilter', {
   },
 
   update: function() {
-    this.fill = 'rgba(0, 0, 0,' + this.alpha + ')'
+    this.fill = 'rgba(0, 0, 0,' + this.alpha + ')';
 
     if(IS_GAMEOVER) {
       this.alpha = 0;
@@ -41,17 +41,27 @@ phina.define('DarkFilter', {
     }
 
     if(IS_CLICK) {
-      if(this.alpha < 1) {
-        this.alpha += 0.05;
-      } else {
-        this.alpha = 1;
-      }
-    }else{
-      if(this.alpha > 0) {
-        this.alpha -= 0.05;
-      } else {
-        this.alpha = 0;
-      }
+      this.toDark();
+    } else {
+      this.toLight();
     }
+  },
+
+  toDark: function() {
+    if(this.alpha >= 1) {
+      this.alpha = 1
+      return true;
+    }
+    this.alpha += 0.05;
+    return true;
+  },
+
+  toLight: function() {
+    if(this.alpha <= 0) {
+      this.alpha = 0
+      return true;
+    }
+    this.alpha -= 0.05;
+    return true;
   }
 });

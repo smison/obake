@@ -28,22 +28,21 @@ phina.define('GhostEffect', {
 });
 
 phina.define('Enemy', {
-  superClass: 'Sprite',
+  superClass: 'DisplayElement',
 
   init: function () {
-    this.superInit('slime');
-    this.anim = FrameAnimation('slime_ss').attachTo(this);
-    this.anim.gotoAndPlay('normal');
+    this.superInit();
+    this.sprite = Sprite('slime').addChildTo(this);
+    this.sprite.anim = FrameAnimation('slime_ss').attachTo(this.sprite);
+    this.sprite.anim.gotoAndPlay('normal');
+
     this.alpha = 0.8;
     this.frameCount = 0;
     this.effectFrameInterval = 10;
     this.is_gameover = false;
 
-    // 衝突判定
-    this.collision = RectangleShape().addChildTo(this);
-    this.collision.width = this.width;
-    this.collision.height = this.height;
-    this.collision.alpha = 0; //衝突判定可視化 = 1
+    this.width = this.sprite.width;
+    this.height = this.sprite.height;
   },
 
   update: function() {
@@ -66,7 +65,7 @@ phina.define('Enemy', {
     if(IS_GAMEOVER) {
       if(this.is_gameover == false) {
         this.is_gameover = true;
-        this.anim.gotoAndPlay('gameover');
+        this.sprite.anim.gotoAndPlay('gameover');
       }
     }
     return true;

@@ -48,7 +48,7 @@ phina.define('MainScene', {
 
     this.label.text = this.score;
 
-    if (this.collisionGlobal(this.player, this.enemy)
+    if (this.player.hitTestElement(this.enemy)
         && !IS_GAMEOVER
         && !IS_CLICK) {
 
@@ -82,14 +82,5 @@ phina.define('MainScene', {
         this.score += 50;
       }
     }
-  },
-
-  // スプライト同士の当たり判定より内側で衝突判定したいため、
-  // 各オブジェクトにthis.collisionをaddChildToしているが、
-  // この座標はローカル座標になっているので、
-  // この関数でグローバル座標に置き換えて衝突判定をする
-  collisionGlobal(obj_1, obj_2) {
-    return (obj_1.x + obj_1.collision.right) >
-           (obj_2.x - (-1 * obj_2.collision.left));
   }
 });
