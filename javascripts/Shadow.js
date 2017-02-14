@@ -1,15 +1,16 @@
-phina.define('Player', {
+phina.define('Shadow', {
   superClass: 'DisplayElement',
 
   init: function () {
     this.superInit();
-    this.sprite = Sprite('player').addChildTo(this);
-    this.sprite.anim = FrameAnimation('player_ss').attachTo(this.sprite);
+    this.sprite = Sprite('shadow').addChildTo(this);
+    this.sprite.anim = FrameAnimation('shadow_ss').attachTo(this.sprite);
     this.sprite.anim.gotoAndPlay('normal');
     this.scaleX *= -1; // 右向きに
+    this.alpha = 0.7;
     this.is_normal = true;
     this.is_gameover = false;
-    this.width = this.sprite.width - 100;
+    this.width = this.sprite.width;
     this.height = this.sprite.height;
   },
 

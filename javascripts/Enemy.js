@@ -41,7 +41,7 @@ phina.define('Enemy', {
     this.effectFrameInterval = 10;
     this.is_gameover = false;
 
-    this.width = this.sprite.width;
+    this.width = this.sprite.width - 50;
     this.height = this.sprite.height;
   },
 
@@ -57,7 +57,7 @@ phina.define('Enemy', {
     }
 
     if(!IS_GAMEOVER) {
-      this.x -= 0;
+      this.x -= 3;
     }
   },
 

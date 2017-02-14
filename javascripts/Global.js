@@ -25,11 +25,13 @@ var SCENES = [
 var ASSETS = {
   image: {
     'player': './images/player.png',
+    'shadow': './images/shadow.png',
     'slime': './images/slime.png',
     'background': './images/background.png',
   },
   spritesheet: {
     'player_ss': 'spritesheets/player.ss',
+    'shadow_ss': 'spritesheets/shadow.ss',
     'slime_ss': 'spritesheets/slime.ss',
   }
 }

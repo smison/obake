@@ -31,6 +31,11 @@ phina.define('MainScene', {
     this.background2.x = this.gridX.center() + SCREEN_WIDTH;
     this.background2.y = this.gridY.center();
 
+        // 影配置
+        this.shadow = Shadow().addChildTo(this.playerLayer);
+        this.shadow.x = this.gridX.center(-5);
+        this.shadow.bottom = this.gridY.center(7.7);
+
     // プレイヤー配置
     this.player = Player().addChildTo(this.playerLayer);
     this.player.x = this.gridX.center(-4.5);
