@@ -17,14 +17,14 @@ phina.define('MainScene', {
     this.playerLayer = Layer().addChildTo(this);
     this.booldFilterLayer = Layer().addChildTo(this);
 
-    // 背景配置
-    this.background = Background().addChildTo(this.backgroundLayer);
-    this.background.x = this.gridX.center();
-    this.background.y = this.gridY.center();
-
-    this.background2 = Background().addChildTo(this.backgroundLayer);
-    this.background2.x = this.gridX.center() + SCREEN_WIDTH;
-    this.background2.y = this.gridY.center();
+    // 背景配置(スクロール時に見切れないよう画面3枚分)
+    this.backgrounds = [];
+    for(var i=0; i <= 2; i++) {
+      var background = Background().addChildTo(this.backgroundLayer);
+      background.x = this.gridX.center() + SCREEN_WIDTH * i;
+      background.y = this.gridY.center();
+      this.backgrounds.push(background);
+    }
 
     // 影配置
     this.shadow = Shadow().addChildTo(this.darkFilterLayer);
@@ -55,6 +55,16 @@ phina.define('MainScene', {
     this.scoreUpdate();
 
     this.label.text = this.score;
+
+    // 一番左側の背景が十分画面外に来たら、一番右に背景を足して一番左の背景を削除
+    if(this.backgrounds[0].x < -SCREEN_WIDTH) {
+      var newBackground = Background().addChildTo(this.backgroundLayer);
+      newBackground.x = this.backgrounds[2].x + SCREEN_WIDTH;
+      newBackground.y = this.gridY.center();
+      this.backgrounds.push(newBackground);
+      var oldBackground = this.backgrounds.shift();
+      oldBackground.remove();
+    }
 
     if (this.player.hitTestElement(this.enemy)
         && !IS_GAMEOVER
