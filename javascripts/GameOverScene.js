@@ -11,6 +11,8 @@ phina.define('TwitterShareButton', {
     });
     this.setInteractive(true);
     this.score = score;
+    this.url = "https://smison.github.io/obake/";
+    this.hashtag = "#obake";
 
     this.label = Label('結果をツイート').addChildTo(this);
     this.label.x = 0;
@@ -20,12 +22,13 @@ phina.define('TwitterShareButton', {
   },
 
   onclick: function () {
-    var url = phina.social.Twitter.createURL({
-      text: this.score + TITLE,
-      hashtags: "",
-      url: " https://smison.github.io/yukari/",
-    });
-    window.open(url, 'share window', 'width=480, height=320');
+      var Tweettxt = encodeURIComponent("ゆうき: "
+        + this.score
+        + " "
+        + this.url
+        + " "
+        + this.hashtag);
+      window.open("http://twitter.com/intent/tweet?text=" + Tweettxt);
   },
 });
 
@@ -51,6 +54,7 @@ phina.define('PlayButton', {
   },
 
   onclick: function () {
+    IS_GAMEOVER = false;
     this.scene.exit();
   },
 });
@@ -73,19 +77,37 @@ phina.define('GameOverScene', {
     this.scoreLabel.remove();
     this.shareButton.remove();
 
+    this.bloodFilter = BloodFilter().addChildTo(this);
+
     // 結果ラベル
     this.resultLabel = Label(arguments[0].score).addChildTo(this);
     this.resultLabel.x = this.gridX.span(12);
     this.resultLabel.y = this.gridY.span(2);
+    this.resultLabel.tweener
+      .wait(500)
+      .to({
+        x:this.gridX.center(),
+        y:this.gridY.center(-3)
+      }, 1300, "easeOutExpo");
 
-    var play_button = PlayButton(this);
-    play_button.x = this.gridX.span(13) + 25;
-    play_button.y = this.gridY.span(7);
-    play_button.addChildTo(this);
+    this.play_button = PlayButton(this).addChildTo(this);
+    this.play_button.x = this.gridX.span(-10);
+    this.play_button.y = this.gridY.span(-10);
+    this.play_button.tweener
+      .wait(500)
+      .to({
+        x:this.gridX.center(-3),
+        y:this.gridY.center(2)
+      }, 1300, "easeOutExpo");
 
-    var twitter_share_button = TwitterShareButton(arguments[0].score);
-    twitter_share_button.x = this.gridX.span(13) + 25;
-    twitter_share_button.y = this.gridY.span(13);
-    twitter_share_button.addChildTo(this);
+    this.tweet_button = TwitterShareButton(arguments[0].score).addChildTo(this);
+    this.tweet_button.x = this.gridX.span(-10);
+    this.tweet_button.y = this.gridY.span(-10);
+    this.tweet_button.tweener
+      .wait(500)
+      .to({
+        x:this.gridX.center(3),
+        y:this.gridY.center(2)
+      }, 1300, "easeOutExpo");
   },
 });

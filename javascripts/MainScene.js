@@ -11,11 +11,6 @@ phina.define('MainScene', {
     this.frameCount = 0;
     this.scoreUpFrameInterval = 30;
 
-    // スコアラベル
-    this.label = Label(this.score).addChildTo(this);
-    this.label.x = this.gridX.span(12);
-    this.label.y = this.gridY.span(2);
-
     this.backgroundLayer = Layer().addChildTo(this);
     this.enemyLayer = Layer().addChildTo(this);
     this.darkFilterLayer = Layer().addChildTo(this);
@@ -31,10 +26,10 @@ phina.define('MainScene', {
     this.background2.x = this.gridX.center() + SCREEN_WIDTH;
     this.background2.y = this.gridY.center();
 
-        // 影配置
-        this.shadow = Shadow().addChildTo(this.playerLayer);
-        this.shadow.x = this.gridX.center(-5);
-        this.shadow.bottom = this.gridY.center(7.7);
+    // 影配置
+    this.shadow = Shadow().addChildTo(this.darkFilterLayer);
+    this.shadow.x = this.gridX.center(-5);
+    this.shadow.bottom = this.gridY.center(7.7);
 
     // プレイヤー配置
     this.player = Player().addChildTo(this.playerLayer);
@@ -45,6 +40,12 @@ phina.define('MainScene', {
     this.enemy = Enemy().addChildTo(this.enemyLayer);
     this.enemy.x = this.gridX.center(5);
     this.enemy.bottom = this.gridY.center(8);
+
+    // スコアラベル
+    this.label = Label(this.score).addChildTo(this.playerLayer);
+    this.label.fill = 'white';
+    this.label.x = this.gridX.span(12);
+    this.label.y = this.gridY.span(2);
 
     // 闇
     this.darkFilter = DarkFilter().addChildTo(this.darkFilterLayer);
@@ -60,7 +61,10 @@ phina.define('MainScene', {
         && !IS_CLICK) {
 
         IS_GAMEOVER = true;
-        BloodFilter().addChildTo(this.booldFilterLayer);
+        this.bloodFilter = BloodFilter().addChildTo(this.booldFilterLayer);
+        this.exit("gameover", {
+          score: parseInt(this.score),
+        });
     }
   },
 
