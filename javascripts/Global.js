@@ -26,6 +26,7 @@ var ASSETS = {
   image: {
     'player': './images/player.png',
     'slime': './images/slime.png',
+    'background': './images/background.png',
   },
   spritesheet: {
     'player_ss': 'spritesheets/player.ss',

@@ -16,28 +16,30 @@ phina.define('MainScene', {
     this.label.x = this.gridX.span(12);
     this.label.y = this.gridY.span(2);
 
-    // 床配置
-    this.floor = RectangleShape({
-        width: SCREEN_WIDTH,
-        height: 50,
-        fill: 'silver'
-    }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(8));
-
     this.backgroundLayer = Layer().addChildTo(this);
     this.enemyLayer = Layer().addChildTo(this);
     this.darkFilterLayer = Layer().addChildTo(this);
     this.playerLayer = Layer().addChildTo(this);
     this.booldFilterLayer = Layer().addChildTo(this);
 
+    // 背景配置
+    this.background = Background().addChildTo(this.backgroundLayer);
+    this.background.x = this.gridX.center();
+    this.background.y = this.gridY.center();
+
+    this.background2 = Background().addChildTo(this.backgroundLayer);
+    this.background2.x = this.gridX.center() + SCREEN_WIDTH;
+    this.background2.y = this.gridY.center();
+
     // プレイヤー配置
     this.player = Player().addChildTo(this.playerLayer);
     this.player.x = this.gridX.center(-4.5);
-    this.player.bottom = this.floor.top;
+    this.player.bottom = this.gridY.center(8);
 
     // 敵配置
     this.enemy = Enemy().addChildTo(this.enemyLayer);
-    this.enemy.x = this.gridX.center(8);
-    this.enemy.bottom = this.floor.top;
+    this.enemy.x = this.gridX.center(5);
+    this.enemy.bottom = this.gridY.center(8);
 
     // 闇
     this.darkFilter = DarkFilter().addChildTo(this.darkFilterLayer);

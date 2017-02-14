@@ -57,7 +57,7 @@ phina.define('Enemy', {
     }
 
     if(!IS_GAMEOVER) {
-      this.x -= 5;
+      this.x -= 0;
     }
   },
 
