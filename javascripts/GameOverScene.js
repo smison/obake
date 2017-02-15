@@ -66,7 +66,7 @@ phina.define('GameOverScene', {
     this.superInit({
       width: SCREEN_WIDTH,
       height: SCREEN_HEIGHT,
-      backgroundColor: 'rgb(255, 255, 255)',
+      backgroundColor: 'rgb(0, 0, 0)',
       score: arguments[0].score,
       message: '',
     });
@@ -77,12 +77,11 @@ phina.define('GameOverScene', {
     this.scoreLabel.remove();
     this.shareButton.remove();
 
-    this.bloodFilter = BloodFilter().addChildTo(this);
-
     // 結果ラベル
     this.resultLabel = Label(arguments[0].score).addChildTo(this);
     this.resultLabel.x = this.gridX.span(12);
     this.resultLabel.y = this.gridY.span(2);
+    this.resultLabel.fill = 'white';
     this.resultLabel.tweener
       .wait(500)
       .to({

@@ -41,6 +41,13 @@ phina.define('MainScene', {
     this.enemy.x = this.gridX.center(5);
     this.enemy.bottom = this.gridY.center(8);
 
+    // 鳥配置
+    /*
+    this.bird = Bird().addChildTo(this.enemyLayer);
+    this.bird.x = this.gridX.center(5);
+    this.bird.bottom = this.gridY.center(1);
+    */
+
     // スコアラベル
     this.label = Label(this.score).addChildTo(this.playerLayer);
     this.label.fill = 'white';
@@ -70,11 +77,30 @@ phina.define('MainScene', {
         && !IS_GAMEOVER
         && !IS_CLICK) {
 
-        IS_GAMEOVER = true;
         this.bloodFilter = BloodFilter().addChildTo(this.booldFilterLayer);
+        this.bloodEffects = [];
+        for(var i=0; i < 100; i++) {
+          var bloodEffect = BloodEffect().addChildTo(this.booldFilterLayer);
+          bloodEffect.x = this.player.x;
+          bloodEffect.y = this.player.y;
+          this.bloodEffects.push(bloodEffect);
+        }
+        IS_GAMEOVER = true;
+    }
+
+    if (IS_GAMEOVER) {
+      var isAllBloodEffectDisappeared = true;
+      for(var i=0; i < this.bloodEffects.length; i++) {
+        if(this.bloodEffects[i].radius > 0) {
+          isAllBloodEffectDisappeared = false;
+        }
+      }
+
+      if(isAllBloodEffectDisappeared) {
         this.exit("gameover", {
           score: parseInt(this.score),
         });
+      }
     }
   },
 

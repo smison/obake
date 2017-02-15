@@ -71,3 +71,52 @@ phina.define('Enemy', {
     return true;
   }
 });
+
+
+phina.define('Bird', {
+  superClass: 'DisplayElement',
+
+  init: function () {
+    this.superInit();
+    this.sprite = Sprite('slime').addChildTo(this);
+    this.sprite.anim = FrameAnimation('slime_ss').attachTo(this.sprite);
+    this.sprite.anim.gotoAndPlay('normal');
+
+    this.alpha = 0.8;
+    this.frameCount = 0;
+    this.effectFrameInterval = 10;
+    this.is_gameover = false;
+    this.sprite.scale = 0.3;
+
+
+    this.width = this.sprite.width - 50;
+    this.height = this.sprite.height;
+  },
+
+  update: function() {
+    this.imageUpdate();
+    this.frameCount += 1;
+    this.y += 10;
+
+    if(this.frameCount == this.effectFrameInterval) {
+      this.effect = GhostEffect().addChildTo(this);
+      this.effect.x = getRandomArbitary(-1 * this.width / 2, this.width / 2);
+      this.effect.y = getRandomArbitary(-1 * this.height / 2, this.height / 2);
+      this.frameCount = 0;
+    }
+
+    if(!IS_GAMEOVER) {
+      this.x -= 25;
+    }
+  },
+
+  imageUpdate: function() {
+    if(IS_GAMEOVER) {
+      if(this.is_gameover == false) {
+        this.is_gameover = true;
+        this.sprite.anim.gotoAndPlay('gameover');
+      }
+    }
+    return true;
+  }
+});

@@ -1,3 +1,29 @@
+phina.define('BloodEffect', {
+  superClass: 'CircleShape',
+
+  init: function () {
+    this.superInit({
+      stroke: false,
+      radius: 30,
+      fill: 'rgba(255, 0, 0, 0.5)',
+      stroke: 'rgba(255, 0, 0, 0.5)',
+      strokeWidth: 2,
+    });
+    this.smallSpeed = getRandomArbitary(1, 10);
+    this.xSpeed = getRandomArbitary(-10, 10);
+    this.ySpeed = getRandomArbitary(-10, 10);
+  },
+
+  update: function() {
+    this.radius -= this.smallSpeed;
+    this.x -= this.xSpeed;
+    this.y -= this.ySpeed;
+    if(this.radius <= 0) {
+      this.radius = 0;
+    }
+  }
+});
+
 phina.define('BloodFilter', {
   superClass: 'RectangleShape',
 
@@ -12,7 +38,8 @@ phina.define('BloodFilter', {
     });
     this.x = SCREEN_WIDTH / 2;
     this.y = SCREEN_HEIGHT / 2;
-  }
+  },
+
 });
 
 phina.define('DarkFilter', {
