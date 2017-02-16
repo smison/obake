@@ -41,12 +41,11 @@ phina.define('MainScene', {
     this.enemy.x = this.gridX.center(5);
     this.enemy.bottom = this.gridY.center(8);
 
+
     // 鳥配置
-    /*
     this.bird = Bird().addChildTo(this.enemyLayer);
     this.bird.x = this.gridX.center(5);
     this.bird.bottom = this.gridY.center(1);
-    */
 
     // スコアラベル
     this.label = Label(this.score).addChildTo(this.playerLayer);
@@ -73,7 +72,7 @@ phina.define('MainScene', {
       oldBackground.remove();
     }
 
-    if (this.player.hitTestElement(this.enemy)
+    if ((this.player.hitTestElement(this.enemy) || this.player.hitTestElement(this.bird))
         && !IS_GAMEOVER
         && !IS_CLICK) {
 
