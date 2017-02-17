@@ -17,6 +17,11 @@ phina.define('MainScene', {
     this.playerLayer = Layer().addChildTo(this);
     this.booldFilterLayer = Layer().addChildTo(this);
 
+    this.enemyPopFrameCount = 0;
+    this.enemyPopInterval = 200;
+
+    this.enemyGroup = [];
+
     // 背景配置(スクロール時に見切れないよう画面3枚分)
     this.backgrounds = [];
     for(var i=0; i <= 2; i++) {
@@ -35,17 +40,6 @@ phina.define('MainScene', {
     this.player = Player().addChildTo(this.playerLayer);
     this.player.x = this.gridX.center(-4.5);
     this.player.bottom = this.gridY.center(8);
-
-    // 敵配置
-    this.enemy = Enemy().addChildTo(this.enemyLayer);
-    this.enemy.x = this.gridX.center(5);
-    this.enemy.bottom = this.gridY.center(8);
-
-
-    // 鳥配置
-    this.bird = Bird().addChildTo(this.enemyLayer);
-    this.bird.x = this.gridX.center(5);
-    this.bird.bottom = this.gridY.center(1);
 
     // スコアラベル
     this.label = Label(this.score).addChildTo(this.playerLayer);
@@ -72,10 +66,49 @@ phina.define('MainScene', {
       oldBackground.remove();
     }
 
-    if ((this.player.hitTestElement(this.enemy) || this.player.hitTestElement(this.bird))
-        && !IS_GAMEOVER
-        && !IS_CLICK) {
+    // 難易度調整
+    if(this.score < 500) {
+      this.enemyPopInterval = 200;
+    } else if(this.score < 1000) {
+      this.enemyPopInterval = 100;
+    } else if(this.score < 1500) {
+      this.enemyPopInterval = 50;
+    } else {
+      this.enemyPopInterval = 10;
+    }
 
+    // 敵出現
+    this.enemyPopFrameCount += 1;
+    if(!IS_GAMEOVER &&
+      (this.enemyPopFrameCount >= this.enemyPopInterval)) {
+      var enemyType = getRandomInt(0, 1);
+
+      if(enemyType == 0) {
+        // 大スライム配置
+        var enemy = Enemy().addChildTo(this.enemyLayer);
+        enemy.x = this.gridX.center(5);
+        enemy.bottom = this.gridY.center(8);
+        this.enemyGroup.push(enemy);
+      } else if (enemyType == 1) {
+        // 鳥配置
+        var enemy = Bird().addChildTo(this.enemyLayer);
+        enemy.x = this.gridX.center(5);
+        enemy.bottom = this.gridY.center(1);
+        this.enemyGroup.push(enemy);
+      }
+      this.enemyPopFrameCount = 0;
+    }
+
+    // 衝突判定
+    var is_hit = false;
+    for(var i=0; i < this.enemyGroup.length; i++) {
+      if(this.player.hitTestElement(this.enemyGroup[i])) {
+        is_hit = true;
+      }
+    }
+
+    // 衝突した
+    if (is_hit && !IS_GAMEOVER && !IS_CLICK) {
         this.bloodFilter = BloodFilter().addChildTo(this.booldFilterLayer);
         this.bloodEffects = [];
         for(var i=0; i < 100; i++) {

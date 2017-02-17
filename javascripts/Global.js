@@ -38,7 +38,12 @@ var ASSETS = {
   }
 }
 
-// min から max までの乱数を返す関数
+// min から max までの整数値乱数を返す関数
+var getRandomInt = function(min, max) {
+  return Math.floor(Math.random() * ((max + 1) - min)) + min;
+}
+
+// min から max までの実数値乱数を返す関数
 var getRandomArbitary = function(min, max) {
   return Math.random() * (max - min) + min;
 }

@@ -19,7 +19,7 @@
         "attack": {
             "frames": [9, 10, 11, 12],
             "next": "attack",
-            "frequency": 3
+            "frequency": 4
         },
         "gameover": {
             "frames": [10],

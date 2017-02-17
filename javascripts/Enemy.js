@@ -58,7 +58,7 @@ phina.define('Enemy', {
     }
 
     if(!IS_GAMEOVER) {
-      this.x -= 2;
+      this.x -= 4;
     }
   },
 
@@ -92,6 +92,8 @@ phina.define('Bird', {
 
     this.width = this.sprite.width - 50;
     this.height = this.sprite.height;
+
+    this.wait_time = getRandomArbitary(40, 150);
   },
 
   update: function() {
@@ -101,6 +103,7 @@ phina.define('Bird', {
 
 
     if(!IS_GAMEOVER) {
+      // 攻撃準備態勢
       if(this.frameCount >= 40 && this.frameCount <= 60) {
         this.x += 1;
         this.y -= 1;
