@@ -1,9 +1,9 @@
 {
     "frame": {
-        "width": 200,
-        "height": 200,
+        "width": 64,
+        "height": 64,
         "rows": 1,
-        "cols": 7
+        "cols": 6
     },
     "animations": {
         "normal": {

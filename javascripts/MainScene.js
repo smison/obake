@@ -117,7 +117,7 @@ phina.define('MainScene', {
     this.enemyPopFrameCount += 1;
     if(!IS_GAMEOVER &&
       (this.enemyPopFrameCount >= this.enemyPopInterval)) {
-      var enemyType = getRandomInt(0, 1);
+      var enemyType = getRandomInt(0, 4);
 
       var enemy = null;
       if(enemyType == 0) {
@@ -131,6 +131,12 @@ phina.define('MainScene', {
         enemy = Bird().addChildTo(this.enemyLayer);
         enemy.x = this.gridX.center(5);
         enemy.bottom = this.gridY.center(1);
+        this.enemyGroup.push(enemy);
+      } else{
+        // 小スライム配置
+        enemy = SmallSlime().addChildTo(this.enemyLayer);
+        enemy.x = this.gridX.center(5);
+        enemy.bottom = this.gridY.center(8);
         this.enemyGroup.push(enemy);
       }
       this.enemyPopFrameCount = 0;
@@ -179,7 +185,6 @@ phina.define('MainScene', {
               alpha: 1,
           }, 1000) // 1秒かけてalpha=1に
           .call(function() {
-            console.log(1);
             this.exit("gameover", {
               score: parseInt(this.score),
             });
