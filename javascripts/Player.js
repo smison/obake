@@ -26,13 +26,13 @@ phina.define('Player', {
       return true;
     }
 
-    if(IS_CLICK && this.is_normal) {
+    if(!IS_TITLE && IS_CLICK && this.is_normal) {
       this.sprite.anim.gotoAndPlay('closeeye');
       this.is_normal = false;
       return true;
     }
 
-    if(!IS_CLICK && !this.is_normal) {
+    if(!IS_TITLE && !IS_CLICK && !this.is_normal) {
       this.sprite.anim.gotoAndPlay('normal');
       this.is_normal = true;
     }

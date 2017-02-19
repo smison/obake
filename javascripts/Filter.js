@@ -3,11 +3,10 @@ phina.define('BloodEffect', {
 
   init: function () {
     this.superInit({
-      stroke: false,
       radius: 30,
       fill: 'rgba(255, 0, 0, 0.5)',
       stroke: 'rgba(255, 0, 0, 0.5)',
-      strokeWidth: 2,
+      strokeWidth: 2
     });
     this.smallSpeed = getRandomArbitary(1, 10);
     this.xSpeed = getRandomArbitary(-10, 10);
@@ -29,7 +28,6 @@ phina.define('BloodFilter', {
 
   init: function () {
     this.superInit({
-      stroke: false,
       width: SCREEN_WIDTH,
       height: SCREEN_HEIGHT,
       fill: 'rgba(255, 0, 0, 0.3)',
@@ -47,12 +45,11 @@ phina.define('DarkFilter', {
 
   init: function () {
     this.superInit({
-      stroke: false,
       width: SCREEN_WIDTH,
       height: SCREEN_HEIGHT,
       fill: 'rgba(0, 0, 0, 0)',
       stroke: 'rgb(0, 0, 0)',
-      strokeWidth: 0,
+      strokeWidth: 0
     });
     this.x = SCREEN_WIDTH / 2;
     this.y = SCREEN_HEIGHT / 2;
@@ -67,7 +64,7 @@ phina.define('DarkFilter', {
       return;
     }
 
-    if(IS_CLICK) {
+    if(!IS_TITLE && IS_CLICK) {
       this.toDark();
     } else {
       this.toLight();
@@ -77,7 +74,7 @@ phina.define('DarkFilter', {
   toDark: function() {
     this.alpha += 0.05;
     if(this.alpha >= 1) {
-      this.alpha = 1
+      this.alpha = 1;
       return true;
     }
     return true;
@@ -86,7 +83,7 @@ phina.define('DarkFilter', {
   toLight: function() {
     this.alpha -= 0.05;
     if(this.alpha <= 0) {
-      this.alpha = 0
+      this.alpha = 0;
       return true;
     }
     return true;

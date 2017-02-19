@@ -7,10 +7,6 @@ phina.define('TitleScene', {
       height: SCREEN_HEIGHT
     });
 
-    // タイトル
-    this.label = Label(TITLE).addChildTo(this);
-    this.label.x = this.gridX.span(11) + 15;
-    this.label.y = this.gridY.span(2);
   },
 
   onclick: function() {
@@ -18,7 +14,7 @@ phina.define('TitleScene', {
   },
 
   update: function() {
-    // TODO: removeMe
+    // TitleSceneとMainSceneをシームレスにしたいのでスキップ
     this.exit();
   }
 });

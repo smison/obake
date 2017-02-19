@@ -41,30 +41,65 @@ phina.define('MainScene', {
     this.player.x = this.gridX.center(-4.5);
     this.player.bottom = this.gridY.center(8);
 
-    // スコアラベル
-    this.label = Label(this.score).addChildTo(this.playerLayer);
-    this.label.fill = 'white';
-    this.label.x = this.gridX.span(12);
-    this.label.y = this.gridY.span(2);
+    // タイトル
+    this.title = Label(TITLE).addChildTo(this.playerLayer);
+    this.title.fill = 'rgb(255, 255, 255)';
+    this.title.fontSize = 18;
+    this.title.x = this.gridX.span(11) + 10;
+    this.title.y = this.gridY.span(2) + 10;
+
+    // 下線
+    this.underLine = phina.display.PathShape({
+        stroke: 'rgb(255, 255, 255)',
+        fill:  'rgb(255, 255, 255)',
+        strokeWidth: 1
+    }).addChildTo(this.playerLayer);
+    this.underLine
+        .addPath(this.title.x - 120, this.title.y + 12)
+        .addPath(this.title.x + 120, this.title.y + 12);
+
+    // click to start
+    this.clickToStart = Label("click tot start").addChildTo(this.playerLayer);
+    this.clickToStart.fill = 'rgb(255, 255, 255)';
+    this.clickToStart.fontSize = 15;
+    this.clickToStart.x = this.gridX.span(13) + 20;
+    this.clickToStart.y = this.gridY.span(3) + 10;
 
     // 闇
-    this.darkFilter = DarkFilter().addChildTo(this.darkFilterLayer);
+    DarkFilter().addChildTo(this.darkFilterLayer);
   },
 
-  update: function () {
+  titleUpdate: function() {
+    if(IS_TITLE_TO_MAIN) {
+      this.title.alpha -= 0.05;
+      this.title.fontSize += 0.2;
+      if(this.title.alpha <= 0) {
+          this.title.alpha = 0;
+      }
+    }
+
+    if(this.title.alpha == 0 && this.label == null) {
+      // スコアラベル
+      this.label = Label(this.score).addChildTo(this.playerLayer);
+      this.label.fontSize = 25;
+      this.label.fill = 'white';
+      this.label.x = this.gridX.span(20);
+      this.label.y = this.gridY.span(2);
+      this.label.tweener
+          .wait(500)
+          .to({
+              x:this.gridX.span(13),
+              y:this.gridY.span(2)
+          }, 1300, "easeOutExpo");
+
+      IS_TITLE = false;
+    }
+  },
+
+  mainUpdate: function() {
     this.scoreUpdate();
 
-    this.label.text = this.score;
-
-    // 一番左側の背景が十分画面外に来たら、一番右に背景を足して一番左の背景を削除
-    if(this.backgrounds[0].x < -SCREEN_WIDTH) {
-      var newBackground = Background().addChildTo(this.backgroundLayer);
-      newBackground.x = this.backgrounds[2].x + SCREEN_WIDTH;
-      newBackground.y = this.gridY.center();
-      this.backgrounds.push(newBackground);
-      var oldBackground = this.backgrounds.shift();
-      oldBackground.remove();
-    }
+    this.label.text = "Brave: " + this.score;
 
     // 難易度調整
     if(this.score < 500) {
@@ -83,15 +118,16 @@ phina.define('MainScene', {
       (this.enemyPopFrameCount >= this.enemyPopInterval)) {
       var enemyType = getRandomInt(0, 1);
 
+      var enemy = null;
       if(enemyType == 0) {
         // 大スライム配置
-        var enemy = Enemy().addChildTo(this.enemyLayer);
+        enemy = Enemy().addChildTo(this.enemyLayer);
         enemy.x = this.gridX.center(5);
         enemy.bottom = this.gridY.center(8);
         this.enemyGroup.push(enemy);
       } else if (enemyType == 1) {
         // 鳥配置
-        var enemy = Bird().addChildTo(this.enemyLayer);
+        enemy = Bird().addChildTo(this.enemyLayer);
         enemy.x = this.gridX.center(5);
         enemy.bottom = this.gridY.center(1);
         this.enemyGroup.push(enemy);
@@ -109,7 +145,7 @@ phina.define('MainScene', {
 
     // 衝突した
     if (is_hit && !IS_GAMEOVER && !IS_CLICK) {
-        this.bloodFilter = BloodFilter().addChildTo(this.booldFilterLayer);
+        BloodFilter().addChildTo(this.booldFilterLayer);
         this.bloodEffects = [];
         for(var i=0; i < 100; i++) {
           var bloodEffect = BloodEffect().addChildTo(this.booldFilterLayer);
@@ -133,6 +169,52 @@ phina.define('MainScene', {
           score: parseInt(this.score),
         });
       }
+    }
+  },
+
+  update: function () {
+    if(IS_TITLE) {
+      this.titleUpdate();
+    } else {
+      this.mainUpdate();
+    }
+
+    // 一番左側の背景が十分画面外に来たら、一番右に背景を足して一番左の背景を削除
+    if(this.backgrounds[0].x < -SCREEN_WIDTH) {
+      var newBackground = Background().addChildTo(this.backgroundLayer);
+      newBackground.x = this.backgrounds[2].x + SCREEN_WIDTH;
+      newBackground.y = this.gridY.center();
+      this.backgrounds.push(newBackground);
+      var oldBackground = this.backgrounds.shift();
+      oldBackground.remove();
+    }
+
+  },
+
+  onclick: function() {
+    if(IS_TITLE) {
+      // フェードアウトして削除
+      this.underLine.tweener
+          .by({
+              alpha: -1,
+              x: -100
+          })
+          .call(function() {
+              this.remove();
+          }, this)
+      ;
+
+      // フェードアウトして削除
+      this.clickToStart.tweener
+          .by({
+              alpha: -1,
+              x: 50
+          })
+          .call(function() {
+              this.remove();
+          }, this)
+      ;
+      IS_TITLE_TO_MAIN = true;
     }
   },
 

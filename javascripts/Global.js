@@ -1,4 +1,6 @@
 phina.globalize();
+var IS_TITLE = true;
+var IS_TITLE_TO_MAIN = false;
 var IS_CLICK = false;
 var IS_GAMEOVER = false;
 var SCREEN_WIDTH = 600;
@@ -19,7 +21,6 @@ var SCENES = [
     label: 'gameover',
     className: 'GameOverScene',
     nextLabel: 'title',
-    nextLabel: 'main',
   },
 ];
 var ASSETS = {

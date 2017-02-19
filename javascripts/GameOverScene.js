@@ -3,11 +3,10 @@ phina.define('TwitterShareButton', {
 
   init: function (score) {
     this.superInit({
-      stroke: false,
       radius: 66,
       fill: 'rgb(64, 64, 64)',
       stroke: 'rgb(64, 64, 64)',
-      strokeWidth: 2,
+      strokeWidth: 2
     });
     this.setInteractive(true);
     this.score = score;
@@ -22,7 +21,7 @@ phina.define('TwitterShareButton', {
   },
 
   onclick: function () {
-      var Tweettxt = encodeURIComponent("ゆうき: "
+      var Tweettxt = encodeURIComponent("Brave: "
         + this.score
         + " "
         + this.url
@@ -37,11 +36,10 @@ phina.define('PlayButton', {
 
   init: function (scene) {
     this.superInit({
-      stroke: false,
       radius: 66,
       fill: 'rgb(64, 64, 64)',
       stroke: 'rgb(64, 64, 64)',
-      strokeWidth: 2,
+      strokeWidth: 2
     });
     this.setInteractive(true);
 
@@ -54,9 +52,11 @@ phina.define('PlayButton', {
   },
 
   onclick: function () {
+    IS_TITLE = true;
+    IS_TITLE_TO_MAIN = false;
     IS_GAMEOVER = false;
     this.scene.exit();
-  },
+  }
 });
 
 phina.define('GameOverScene', {
@@ -68,7 +68,7 @@ phina.define('GameOverScene', {
       height: SCREEN_HEIGHT,
       backgroundColor: 'rgb(0, 0, 0)',
       score: arguments[0].score,
-      message: '',
+      message: ''
     });
 
     // デフォルトで表示されているものを消す
@@ -78,9 +78,10 @@ phina.define('GameOverScene', {
     this.shareButton.remove();
 
     // 結果ラベル
-    this.resultLabel = Label(arguments[0].score).addChildTo(this);
-    this.resultLabel.x = this.gridX.span(12);
+    this.resultLabel = Label("Brave: " + arguments[0].score).addChildTo(this);
+    this.resultLabel.x = this.gridX.span(13);
     this.resultLabel.y = this.gridY.span(2);
+    this.resultLabel.fontSize = 25;
     this.resultLabel.fill = 'white';
     this.resultLabel.tweener
       .wait(500)
