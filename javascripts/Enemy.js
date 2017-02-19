@@ -28,7 +28,7 @@ phina.define('GhostEffect', {
   }
 });
 
-phina.define('Enemy', {
+phina.define('Slime', {
   superClass: 'DisplayElement',
 
   init: function () {

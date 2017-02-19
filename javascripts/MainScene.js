@@ -16,6 +16,7 @@ phina.define('MainScene', {
     this.darkFilterLayer = Layer().addChildTo(this);
     this.playerLayer = Layer().addChildTo(this);
     this.booldFilterLayer = Layer().addChildTo(this);
+    this.scoreLayer = Layer().addChildTo(this);
 
     this.enemyPopFrameCount = 0;
     this.enemyPopInterval = 200;
@@ -59,7 +60,7 @@ phina.define('MainScene', {
         .addPath(this.title.x + 120, this.title.y + 12);
 
     // click to start
-    this.clickToStart = Label("click tot start").addChildTo(this.playerLayer);
+    this.clickToStart = Label("click to start").addChildTo(this.playerLayer);
     this.clickToStart.fill = 'rgb(255, 255, 255)';
     this.clickToStart.fontSize = 15;
     this.clickToStart.x = this.gridX.span(13) + 20;
@@ -80,7 +81,7 @@ phina.define('MainScene', {
 
     if(this.title.alpha == 0 && this.label == null) {
       // スコアラベル
-      this.label = Label(this.score).addChildTo(this.playerLayer);
+      this.label = Label(this.score).addChildTo(this.scoreLayer);
       this.label.fontSize = 25;
       this.label.fill = 'white';
       this.label.x = this.gridX.span(20);
@@ -121,7 +122,7 @@ phina.define('MainScene', {
       var enemy = null;
       if(enemyType == 0) {
         // 大スライム配置
-        enemy = Enemy().addChildTo(this.enemyLayer);
+        enemy = Slime().addChildTo(this.enemyLayer);
         enemy.x = this.gridX.center(5);
         enemy.bottom = this.gridY.center(8);
         this.enemyGroup.push(enemy);
@@ -165,9 +166,25 @@ phina.define('MainScene', {
       }
 
       if(isAllBloodEffectDisappeared) {
-        this.exit("gameover", {
-          score: parseInt(this.score),
-        });
+        this.blackOutFilter = RectangleShape().addChildTo(this.booldFilterLayer);
+        this.blackOutFilter.width = SCREEN_WIDTH;
+        this.blackOutFilter.height = SCREEN_HEIGHT;
+        this.blackOutFilter.x = SCREEN_WIDTH / 2;
+        this.blackOutFilter.y = SCREEN_HEIGHT / 2;
+        this.blackOutFilter.fill = 'black';
+        this.blackOutFilter.stroke = 'black';
+        this.blackOutFilter.alpha = 0; // tweenerを使うので明示的にalphaプロパティが必要
+        this.blackOutFilter.tweener
+          .by({
+              alpha: 1,
+          }, 1000) // 1秒かけてalpha=1に
+          .call(function() {
+            console.log(1);
+            this.exit("gameover", {
+              score: parseInt(this.score),
+            });
+          },
+        this);
       }
     }
   },
