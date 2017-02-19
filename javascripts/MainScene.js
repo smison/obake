@@ -1,4 +1,3 @@
-
 phina.define('MainScene', {
   superClass: 'DisplayScene',
 
