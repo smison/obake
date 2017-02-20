@@ -31,13 +31,14 @@ var ASSETS = {
     'small_slime': './images/small_slime.png',
     'bird': './images/bird.png',
     'background': './images/background.png',
+    'icon': './images/icon.png'
   },
   spritesheet: {
     'player_ss': 'spritesheets/player.ss',
     'shadow_ss': 'spritesheets/shadow.ss',
     'slime_ss': 'spritesheets/slime.ss',
     'small_slime_ss': 'spritesheets/small_slime.ss',
-    'bird_ss': 'spritesheets/bird.ss',
+    'bird_ss': 'spritesheets/bird.ss'
   }
 }
 

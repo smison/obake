@@ -59,6 +59,41 @@ phina.define('PlayButton', {
   }
 });
 
+
+phina.define('TwitterLabel', {
+    superClass: 'Label',
+
+    init: function () {
+        this.superInit({});
+        this.text = '@smison';
+        this.fill = 'rgb(255, 255, 255)';
+        this.fontSize = 14;
+        this.setInteractive(true);
+    },
+
+    onclick: function () {
+        window.open("http://twitter.com/smison");
+    }
+});
+
+phina.define('TwitterIcon', {
+    superClass: 'Sprite',
+
+    init: function () {
+        this.superInit('icon');
+        this.width = 30;
+        this.height = 30;
+        this.setInteractive(true);
+
+        this.label = TwitterLabel().addChildTo(this);
+        this.label.x = 52;
+    },
+
+    onclick: function () {
+        window.open("http://twitter.com/smison");
+    }
+});
+
 phina.define('GameOverScene', {
   superClass: 'ResultScene',
 
@@ -109,5 +144,15 @@ phina.define('GameOverScene', {
         x:this.gridX.center(3),
         y:this.gridY.center(2)
       }, 1300, "easeOutExpo");
-  },
+
+    this.icon = TwitterIcon().addChildTo(this);
+      this.icon.x = this.gridX.center(20);
+      this.icon.y = this.gridY.center(7);
+    this.icon.tweener
+          .wait(500)
+          .to({
+              x:this.gridX.center(5),
+              y:this.gridY.center(7)
+          }, 1300, "easeOutExpo");
+  }
 });
