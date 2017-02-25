@@ -4,7 +4,8 @@ phina.define('TitleScene', {
   init: function () {
     this.superInit({
       width: SCREEN_WIDTH,
-      height: SCREEN_HEIGHT
+      height: SCREEN_HEIGHT,
+      backgroundColor: 'rgb(0, 0, 0)',
     });
 
   },

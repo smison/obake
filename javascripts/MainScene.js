@@ -4,7 +4,8 @@ phina.define('MainScene', {
   init: function () {
     this.superInit({
       width: SCREEN_WIDTH,
-      height: SCREEN_HEIGHT
+      height: SCREEN_HEIGHT,
+      backgroundColor: 'rgb(0, 0, 0)',
     });
     this.score = 0;
     this.frameCount = 0;
@@ -140,6 +141,15 @@ phina.define('MainScene', {
       }
       this.enemyPopFrameCount = 0;
     }
+
+    // 画面内いる敵のみ残し、残りは削除
+    var newEnemyGroup = []
+    for(var i=0; i < this.enemyGroup.length; i++) {
+      if(this.enemyGroup[i].x > -100) {
+        newEnemyGroup.push(this.enemyGroup[i]);
+      }
+    }
+    this.enemyGroup = newEnemyGroup;
 
     // 衝突判定
     var is_hit = false;
