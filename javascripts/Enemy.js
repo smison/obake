@@ -170,7 +170,6 @@ phina.define('Bird', {
     this.frameCount += 1;
     this.y += 0;
 
-
     if(!IS_GAMEOVER) {
       // 攻撃準備態勢
       if(this.frameCount >= 40 && this.frameCount <= 60) {
@@ -183,8 +182,16 @@ phina.define('Bird', {
 
       // 攻撃
       if(this.frameCount >= 60) {
-        this.x -= 25;
-        this.y += 10;
+          if(this.positionType == 'front') {
+              this.x -= 25;
+              this.y += 15;
+          } else if(this.positionType == 'middle') {
+              this.x -= 25;
+              this.y += 13;
+          } else {
+              this.x -= 25;
+              this.y += 11;
+          }
       }
     }
 
