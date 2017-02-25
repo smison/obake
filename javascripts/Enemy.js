@@ -132,18 +132,40 @@ phina.define('Bird', {
     this.effectFrameInterval = 10;
     this.is_gameover = false;
     this.sprite.scale = 0.3;
-    this.is_attack = false;
 
     this.width = this.sprite.width - 50;
     this.height = this.sprite.height;
 
+    // 待機時間
     this.wait_time = getRandomArbitary(40, 150);
+
+    // 待機位置
+    var wait_x = 0;
+    var wait_y = 0;
+    var position = ['front', 'middle', 'back'].random();
+
+    if(position == 'front') {
+        wait_x = SCREEN_WIDTH - 160;
+        wait_y = 120;
+    } else if(position == 'middle') {
+        wait_x = SCREEN_WIDTH - 100;
+        wait_y = 120;
+    } else {
+        wait_x = SCREEN_WIDTH - 50;
+        wait_y = 120;
+    }
+
+    this.tweener
+        .to({
+            x: wait_x,
+            y: wait_y
+        }, 1300, "easeOutExpo");
   },
 
   update: function() {
     this.imageUpdate();
     this.frameCount += 1;
-    this.y += 0
+    this.y += 0;
 
 
     if(!IS_GAMEOVER) {
@@ -156,6 +178,7 @@ phina.define('Bird', {
         this.sprite.anim.gotoAndPlay('preattack');
       }
 
+      // 攻撃
       if(this.frameCount >= 60) {
         this.x -= 25;
         this.y += 10;

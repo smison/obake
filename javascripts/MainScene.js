@@ -112,30 +112,31 @@ phina.define('MainScene', {
     } else {
       this.enemyPopInterval = 10;
     }
+    this.enemyPopInterval = 30;
 
     // 敵出現
     this.enemyPopFrameCount += 1;
     if(!IS_GAMEOVER &&
       (this.enemyPopFrameCount >= this.enemyPopInterval)) {
-      var enemyType = getRandomInt(0, 4);
+      var enemyType = getRandomInt(0, 0);
 
       var enemy = null;
-      if(enemyType == 0) {
+      if(enemyType == 1) {
         // 大スライム配置
         enemy = Slime().addChildTo(this.enemyLayer);
-        enemy.x = this.gridX.center(5);
+        enemy.x = this.gridX.center(10);
         enemy.bottom = this.gridY.center(8);
         this.enemyGroup.push(enemy);
-      } else if (enemyType == 1) {
+      } else if (enemyType == 0) {
         // 鳥配置
         enemy = Bird().addChildTo(this.enemyLayer);
-        enemy.x = this.gridX.center(5);
+        enemy.x = this.gridX.center(10);
         enemy.bottom = this.gridY.center(1);
         this.enemyGroup.push(enemy);
       } else{
         // 小スライム配置
         enemy = SmallSlime().addChildTo(this.enemyLayer);
-        enemy.x = this.gridX.center(5);
+        enemy.x = this.gridX.center(10);
         enemy.bottom = this.gridY.center(8);
         this.enemyGroup.push(enemy);
       }
@@ -191,11 +192,11 @@ phina.define('MainScene', {
         this.blackOutFilter.alpha = 0; // tweenerを使うので明示的にalphaプロパティが必要
         this.blackOutFilter.tweener
           .by({
-              alpha: 1,
+              alpha: 1
           }, 1000) // 1秒かけてalpha=1に
           .call(function() {
             this.exit("gameover", {
-              score: parseInt(this.score),
+              score: parseInt(this.score)
             });
           },
         this);
