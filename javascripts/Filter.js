@@ -8,9 +8,9 @@ phina.define('BloodEffect', {
       stroke: 'rgba(255, 0, 0, 0.5)',
       strokeWidth: 2
     });
-    this.smallSpeed = getRandomArbitary(1, 10);
-    this.xSpeed = getRandomArbitary(-10, 10);
-    this.ySpeed = getRandomArbitary(-10, 10);
+    this.smallSpeed = getRandomArbitrary(1, 10);
+    this.xSpeed = getRandomArbitrary(-10, 10);
+    this.ySpeed = getRandomArbitrary(-10, 10);
   },
 
   update: function() {

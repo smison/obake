@@ -20,8 +20,8 @@ var SCENES = [
   {
     label: 'gameover',
     className: 'GameOverScene',
-    nextLabel: 'title',
-  },
+    nextLabel: 'title'
+  }
 ];
 var ASSETS = {
   image: {
@@ -40,14 +40,14 @@ var ASSETS = {
     'small_slime_ss': 'spritesheets/small_slime.ss',
     'bird_ss': 'spritesheets/bird.ss'
   }
-}
+};
 
 // min から max までの整数値乱数を返す関数
 var getRandomInt = function(min, max) {
   return Math.floor(Math.random() * ((max + 1) - min)) + min;
-}
+};
 
 // min から max までの実数値乱数を返す関数
-var getRandomArbitary = function(min, max) {
+var getRandomArbitrary = function(min, max) {
   return Math.random() * (max - min) + min;
-}
+};

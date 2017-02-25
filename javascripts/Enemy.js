@@ -45,6 +45,8 @@ phina.define('Slime', {
 
     this.width = this.sprite.width - 50;
     this.height = this.sprite.height;
+
+    this.moveSpeed = getRandomInt(4, 6);
   },
 
   update: function() {
@@ -53,13 +55,13 @@ phina.define('Slime', {
 
     if(this.frameCount == this.effectFrameInterval) {
       this.effect = GhostEffect().addChildTo(this);
-      this.effect.x = getRandomArbitary(-1 * this.width / 2, this.width / 2);
-      this.effect.y = getRandomArbitary(-1 * this.height / 2, this.height / 2);
+      this.effect.x = getRandomArbitrary(-1 * this.width / 2, this.width / 2);
+      this.effect.y = getRandomArbitrary(-1 * this.height / 2, this.height / 2);
       this.frameCount = 0;
     }
 
     if(!IS_GAMEOVER) {
-      this.x -= 4;
+      this.x -= this.moveSpeed;
     }
   },
 
@@ -91,6 +93,8 @@ phina.define('SmallSlime', {
 
     this.width = this.sprite.width - 20;
     this.height = this.sprite.height;
+
+    this.moveSpeed = getRandomInt(2, 8);
   },
 
   update: function() {
@@ -99,13 +103,13 @@ phina.define('SmallSlime', {
 
     if(this.frameCount == this.effectFrameInterval) {
       this.effect = GhostEffect().addChildTo(this);
-      this.effect.x = getRandomArbitary(-1 * this.width / 2, this.width / 2);
-      this.effect.y = getRandomArbitary(-1 * this.height / 2, this.height / 2);
+      this.effect.x = getRandomArbitrary(-1 * this.width / 2, this.width / 2);
+      this.effect.y = getRandomArbitrary(-1 * this.height / 2, this.height / 2);
       this.frameCount = 0;
     }
 
     if(!IS_GAMEOVER) {
-      this.x -= 4;
+      this.x -= this.moveSpeed;
     }
   },
 
@@ -140,7 +144,7 @@ phina.define('Bird', {
     this.height = this.sprite.height;
 
     // 待機時間
-    this.wait_time = getRandomArbitary(40, 150);
+    this.wait_time = getRandomArbitrary(40, 150);
 
     // 待機位置
     var wait_x = 0;
@@ -197,8 +201,8 @@ phina.define('Bird', {
 
     if(this.frameCount % this.effectFrameInterval == 0) {
       this.effect = GhostEffect().addChildTo(this);
-      this.effect.x = getRandomArbitary(-1 * this.width / 2, this.width / 2);
-      this.effect.y = getRandomArbitary(-1 * this.height / 2, this.height / 2);
+      this.effect.x = getRandomArbitrary(-1 * this.width / 2, this.width / 2);
+      this.effect.y = getRandomArbitrary(-1 * this.height / 2, this.height / 2);
     }
 
     if(!IS_GAMEOVER) {

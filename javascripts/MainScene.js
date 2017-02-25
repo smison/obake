@@ -119,8 +119,8 @@ phina.define('MainScene', {
     if(this.score < 300) {
         this.scoreUp = 50;
         this.maxEnemyNum["Slime"] = 0;
-        this.maxEnemyNum["SmallSlime"] = 0;
-        this.maxEnemyNum["Bird"] = 1;
+        this.maxEnemyNum["SmallSlime"] = 1;
+        this.maxEnemyNum["Bird"] = 0;
         this.enemyPopInterval = 100;
     } else if(this.score < 500) {
         this.scoreUp = 50;
@@ -159,6 +159,11 @@ phina.define('MainScene', {
               enemy = SmallSlime().addChildTo(this.enemyLayer);
               enemy.x = this.gridX.center(10);
               enemy.bottom = this.gridY.center(8);
+
+              // 初回表示は普通の移動速度で
+              if(this.score < 300) {
+                enemy.moveSpeed = 5;
+              }
           }
           this.enemyGroup.push(enemy);
           this.enemyNum[enemyType] += 1;
