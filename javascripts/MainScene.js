@@ -140,7 +140,7 @@ phina.define('MainScene', {
               enemy.bottom = this.gridY.center(8);
 
               // 初回表示は普通の移動速度で
-              if(this.score < 300) {
+              if(this.score < 200) {
                 enemy.moveSpeed = 5;
               }
           }
@@ -290,37 +290,56 @@ phina.define('MainScene', {
   },
 
   levelUpdate: function() {
-      if(this.score < 300) {
+      if(this.score < 200) {
           this.scoreUp = 50;
           this.enemyPopInterval = 100;
           this.maxEnemyNum["Slime"] = 0;
-          this.maxEnemyNum["SmallSlime"] = 0;
-          this.maxEnemyNum["Bird"] =1;
-      } else if(this.score < 500) {
-          this.scoreUp = 50;
-          this.enemyPopInterval = 150;
-          this.maxEnemyNum["Slime"] = 0;
-          this.maxEnemyNum["SmallSlime"] = 2;
-          this.maxEnemyNum["Bird"] = 1;
-      } else if(this.score < 500) {
-          this.scoreUp = 50;
-          this.enemyPopInterval = 150;
-          this.maxEnemyNum["Slime"] = 0;
-          this.maxEnemyNum["SmallSlime"] = 2;
-          this.maxEnemyNum["Bird"] = 1;
-      } else if(this.score < 500) {
-          this.scoreUp = 50;
-          this.enemyPopInterval = 150;
-          this.maxEnemyNum["Slime"] = 0;
-          this.maxEnemyNum["SmallSlime"] = 2;
-          this.maxEnemyNum["Bird"] = 1;
-      } else if(this.score < 1000) {
-          this.enemyPopInterval = 100;
-      } else if(this.score < 1500) {
-          this.enemyPopInterval = 50;
-      } else {
-          this.enemyPopInterval = 10;
+          this.maxEnemyNum["SmallSlime"] = 1;
+          this.maxEnemyNum["Bird"] = 0;
+          return true;
       }
+
+      if(this.score < 500) {
+          this.scoreUp = 50;
+          this.enemyPopInterval = 150;
+          this.maxEnemyNum["Slime"] = 0;
+          this.maxEnemyNum["SmallSlime"] = 2;
+          this.maxEnemyNum["Bird"] = 1;
+          return true;
+      }
+
+      if(this.score < 700) {
+          this.scoreUp = 50;
+          this.enemyPopInterval = 100;
+          this.maxEnemyNum["Slime"] = 0;
+          this.maxEnemyNum["SmallSlime"] = 2;
+          this.maxEnemyNum["Bird"] = 2;
+          return true;
+      }
+
+      if(this.score < 1000) {
+          this.scoreUp = 50;
+          this.enemyPopInterval = 100;
+          this.maxEnemyNum["Slime"] = 1;
+          this.maxEnemyNum["SmallSlime"] = 3;
+          this.maxEnemyNum["Bird"] = 2;
+          return true;
+      }
+
+      if(this.score < 1500) {
+          this.scoreUp = 50;
+          this.enemyPopInterval = 80;
+          this.maxEnemyNum["Slime"] = 2;
+          this.maxEnemyNum["SmallSlime"] = 3;
+          this.maxEnemyNum["Bird"] = 3;
+          return true;
+      }
+
+      this.scoreUp = 100;
+      this.enemyPopInterval = 50;
+      this.maxEnemyNum["Slime"] = 3;
+      this.maxEnemyNum["SmallSlime"] = 3;
+      this.maxEnemyNum["Bird"] = 3;
       return true;
   }
 });

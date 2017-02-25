@@ -1,6 +1,11 @@
 body {
   color: #DDDDDD;
   background-color: #333333;
+  font-size: 13px;
+}
+
+#main {
+  padding: 10px;
 }
 
 #game {
@@ -9,7 +14,6 @@ body {
 }
 
 #text {
-  font-size: 13px;
   margin-left: 30px;
 }
 p {
