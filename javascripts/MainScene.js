@@ -23,6 +23,18 @@ phina.define('MainScene', {
 
     this.enemyGroup = [];
 
+    // 現在の敵の数
+    this.enemyNum = [];
+    this.enemyNum["Slime"] = 0;
+    this.enemyNum["SmallSlime"] = 0;
+    this.enemyNum["Bird"] = 0;
+
+    // 敵の最大出現数
+    this.maxEnemyNum = [];
+    this.maxEnemyNum["Slime"] = 1;
+    this.maxEnemyNum["SmallSlime"] = 1;
+    this.maxEnemyNum["Bird"] = 1;
+
     // 背景配置(スクロール時に見切れないよう画面3枚分)
     this.backgrounds = [];
     for(var i=0; i <= 2; i++) {
@@ -118,36 +130,42 @@ phina.define('MainScene', {
     this.enemyPopFrameCount += 1;
     if(!IS_GAMEOVER &&
       (this.enemyPopFrameCount >= this.enemyPopInterval)) {
-      var enemyType = getRandomInt(0, 0);
+      var enemyType = ["Slime", "SmallSlime", "Bird"].random();
 
       var enemy = null;
-      if(enemyType == 1) {
-        // 大スライム配置
-        enemy = Slime().addChildTo(this.enemyLayer);
-        enemy.x = this.gridX.center(10);
-        enemy.bottom = this.gridY.center(8);
-        this.enemyGroup.push(enemy);
-      } else if (enemyType == 0) {
-        // 鳥配置
-        enemy = Bird().addChildTo(this.enemyLayer);
-        enemy.x = this.gridX.center(10);
-        enemy.bottom = this.gridY.center(1);
-        this.enemyGroup.push(enemy);
-      } else{
-        // 小スライム配置
-        enemy = SmallSlime().addChildTo(this.enemyLayer);
-        enemy.x = this.gridX.center(10);
-        enemy.bottom = this.gridY.center(8);
-        this.enemyGroup.push(enemy);
+      if(this.enemyNum[enemyType] < this.maxEnemyNum[enemyType]) {
+          if(enemyType == "Slime") {
+              // 大スライム配置
+              enemy = Slime().addChildTo(this.enemyLayer);
+              enemy.x = this.gridX.center(10);
+              enemy.bottom = this.gridY.center(8);
+          } else if (enemyType == "Bird") {
+              // 鳥配置
+              enemy = Bird().addChildTo(this.enemyLayer);
+              enemy.x = this.gridX.center(10);
+              enemy.bottom = this.gridY.center(1);
+          } else if(enemyType == "SmallSlime") {
+              // 小スライム配置
+              enemy = SmallSlime().addChildTo(this.enemyLayer);
+              enemy.x = this.gridX.center(10);
+              enemy.bottom = this.gridY.center(8);
+          }
+          this.enemyGroup.push(enemy);
+          this.enemyNum[enemyType] += 1;
+          this.enemyPopFrameCount = 0;
       }
-      this.enemyPopFrameCount = 0;
     }
 
     // 画面内いる敵のみ残し、残りは削除
-    var newEnemyGroup = []
+    var newEnemyGroup = [];
     for(var i=0; i < this.enemyGroup.length; i++) {
       if(this.enemyGroup[i].x > -100) {
+        // 残す敵
         newEnemyGroup.push(this.enemyGroup[i]);
+      } else {
+        // 消す敵
+        this.enemyGroup[i]
+        this.enemyGroup[i].remove();
       }
     }
     this.enemyGroup = newEnemyGroup;

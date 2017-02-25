@@ -33,6 +33,7 @@ phina.define('Slime', {
 
   init: function () {
     this.superInit();
+    this.type = "Slime";
     this.sprite = Sprite('slime').addChildTo(this);
     this.sprite.anim = FrameAnimation('slime_ss').attachTo(this.sprite);
     this.sprite.anim.gotoAndPlay('normal');
@@ -78,6 +79,7 @@ phina.define('SmallSlime', {
 
   init: function () {
     this.superInit();
+    this.type = "SmallSlime";
     this.sprite = Sprite('small_slime').addChildTo(this);
     this.sprite.anim = FrameAnimation('small_slime_ss').attachTo(this.sprite);
     this.sprite.anim.gotoAndPlay('normal');
@@ -123,6 +125,7 @@ phina.define('Bird', {
 
   init: function () {
     this.superInit();
+    this.type = "Bird";
     this.sprite = Sprite('bird').addChildTo(this);
     this.sprite.anim = FrameAnimation('bird_ss').attachTo(this.sprite);
     this.sprite.anim.gotoAndPlay('normal');
@@ -142,12 +145,12 @@ phina.define('Bird', {
     // 待機位置
     var wait_x = 0;
     var wait_y = 0;
-    var position = ['front', 'middle', 'back'].random();
+    this.positionType = ['front', 'middle', 'back'].random(); // this.positionは予約語
 
-    if(position == 'front') {
+    if(this.positionType == 'front') {
         wait_x = SCREEN_WIDTH - 160;
         wait_y = 120;
-    } else if(position == 'middle') {
+    } else if(this.positionType == 'middle') {
         wait_x = SCREEN_WIDTH - 100;
         wait_y = 120;
     } else {
