@@ -164,7 +164,7 @@ phina.define('MainScene', {
         newEnemyGroup.push(this.enemyGroup[i]);
       } else {
         // 消す敵
-        this.enemyGroup[i]
+        this.enemyNum[this.enemyGroup[i].type] -= 1;
         this.enemyGroup[i].remove();
       }
     }
