@@ -11,7 +11,7 @@ phina.define('TwitterShareButton', {
     this.setInteractive(true);
     this.score = score;
     this.url = "https://smison.github.io/obake/";
-    this.hashtag = "#obake";
+    this.hashtag = "#_obake";
 
     this.label = Label('結果をツイート').addChildTo(this);
     this.label.x = 0;
