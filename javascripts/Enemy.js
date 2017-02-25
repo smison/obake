@@ -138,13 +138,14 @@ phina.define('Bird', {
     this.frameCount = 0;
     this.effectFrameInterval = 10;
     this.is_gameover = false;
+    this.is_attack = false;
     this.sprite.scale = 0.3;
 
     this.width = this.sprite.width - 50;
     this.height = this.sprite.height;
 
     // 待機時間
-    this.wait_time = getRandomArbitrary(40, 150);
+    this.wait_time = getRandomArbitrary(40, 160);
 
     // 待機位置
     var wait_x = 0;
@@ -176,16 +177,19 @@ phina.define('Bird', {
 
     if(!IS_GAMEOVER) {
       // 攻撃準備態勢
-      if(this.frameCount >= 40 && this.frameCount <= 60) {
+      if(this.frameCount >= this.wait_time && this.frameCount <= this.wait_time + 20) {
         this.x += 1;
         this.y -= 1;
       }
-      if(this.frameCount == 50) {
+
+      // 攻撃準備モーションに切替え
+      if(this.frameCount >= this.wait_time + 10 && this.is_attack == false) {
         this.sprite.anim.gotoAndPlay('preattack');
+        this.is_attack = true;
       }
 
       // 攻撃
-      if(this.frameCount >= 60) {
+      if(this.frameCount >= this.wait_time + 20) {
           if(this.positionType == 'front') {
               this.x -= 25;
               this.y += 15;

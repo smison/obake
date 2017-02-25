@@ -111,30 +111,9 @@ phina.define('MainScene', {
   },
 
   mainUpdate: function() {
+    this.levelUpdate();
     this.scoreUpdate();
-
     this.label.text = "Brave: " + this.score;
-
-    // 難易度調整
-    if(this.score < 300) {
-        this.scoreUp = 50;
-        this.maxEnemyNum["Slime"] = 0;
-        this.maxEnemyNum["SmallSlime"] = 1;
-        this.maxEnemyNum["Bird"] = 0;
-        this.enemyPopInterval = 100;
-    } else if(this.score < 500) {
-        this.scoreUp = 50;
-        this.maxEnemyNum["Slime"] = 0;
-        this.maxEnemyNum["SmallSlime"] = 2;
-        this.maxEnemyNum["Bird"] = 2;
-        this.enemyPopInterval = 150;
-    } else if(this.score < 1000) {
-      this.enemyPopInterval = 100;
-    } else if(this.score < 1500) {
-      this.enemyPopInterval = 50;
-    } else {
-      this.enemyPopInterval = 10;
-    }
 
     // 敵出現
     this.enemyPopFrameCount += 1;
@@ -308,5 +287,40 @@ phina.define('MainScene', {
         this.score += this.scoreUp;
       }
     }
+  },
+
+  levelUpdate: function() {
+      if(this.score < 300) {
+          this.scoreUp = 50;
+          this.enemyPopInterval = 100;
+          this.maxEnemyNum["Slime"] = 0;
+          this.maxEnemyNum["SmallSlime"] = 0;
+          this.maxEnemyNum["Bird"] =1;
+      } else if(this.score < 500) {
+          this.scoreUp = 50;
+          this.enemyPopInterval = 150;
+          this.maxEnemyNum["Slime"] = 0;
+          this.maxEnemyNum["SmallSlime"] = 2;
+          this.maxEnemyNum["Bird"] = 1;
+      } else if(this.score < 500) {
+          this.scoreUp = 50;
+          this.enemyPopInterval = 150;
+          this.maxEnemyNum["Slime"] = 0;
+          this.maxEnemyNum["SmallSlime"] = 2;
+          this.maxEnemyNum["Bird"] = 1;
+      } else if(this.score < 500) {
+          this.scoreUp = 50;
+          this.enemyPopInterval = 150;
+          this.maxEnemyNum["Slime"] = 0;
+          this.maxEnemyNum["SmallSlime"] = 2;
+          this.maxEnemyNum["Bird"] = 1;
+      } else if(this.score < 1000) {
+          this.enemyPopInterval = 100;
+      } else if(this.score < 1500) {
+          this.enemyPopInterval = 50;
+      } else {
+          this.enemyPopInterval = 10;
+      }
+      return true;
   }
 });
