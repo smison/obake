@@ -37,12 +37,14 @@ phina.define('MainScene', {
     this.maxEnemyNum["Bird"] = 1;
 
     // 背景配置(スクロール時に見切れないよう画面3枚分)
+    var _wkX = 0;
     this.backgrounds = [];
-    for(var i=0; i <= 2; i++) {
+    for(var i = 0; i <= 2; i++) {
       var background = Background().addChildTo(this.backgroundLayer);
-      background.x = this.gridX.center() + SCREEN_WIDTH * i;
+      background.x = _wkX;
       background.y = this.gridY.center();
       this.backgrounds.push(background);
+      _wkX += background.sprite.width;
     }
 
     // 影配置
@@ -169,6 +171,8 @@ phina.define('MainScene', {
     for(var i=0; i < this.enemyGroup.length; i++) {
       if(this.player.hitTestElement(this.enemyGroup[i])) {
         is_hit = true;
+        // is_hit trueになったときに即抜けていい
+        break;
       }
     }
 
@@ -224,15 +228,15 @@ phina.define('MainScene', {
     }
 
     // 一番左側の背景が十分画面外に来たら、一番右に背景を足して一番左の背景を削除
-    if(this.backgrounds[0].x < -SCREEN_WIDTH) {
-      var newBackground = Background().addChildTo(this.backgroundLayer);
-      newBackground.x = this.backgrounds[2].x + SCREEN_WIDTH;
-      newBackground.y = this.gridY.center();
-      this.backgrounds.push(newBackground);
-      var oldBackground = this.backgrounds.shift();
-      oldBackground.remove();
+    var firstBackGround = this.backgrounds[0];
+    if(firstBackGround.x < -firstBackGround.sprite.width) {
+      var lastBackGround = this.backgrounds[this.backgrounds.length - 1];
+      firstBackGround.x = lastBackGround.x + lastBackGround.sprite.width / 2 + firstBackGround.sprite.width / 2;
+      // ソート順変えたほうが軽そうなので対応
+      this.backgrounds.sort(function(a, b) {
+          return a.x - b.x;
+      });
     }
-
   },
 
   onclick: function() {
